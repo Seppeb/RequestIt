@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace RequestIt.Models
 {
@@ -8,6 +10,8 @@ namespace RequestIt.Models
 
         public string Voornaam { get; set; }        
         public string Achternaam { get; set; }
-        
+
+        public ICollection<Aanvraag> Aanvragen { get; set; }
+
     }
 }

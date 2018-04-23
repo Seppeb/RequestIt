@@ -1,0 +1,47 @@
+﻿@model IEnumerable<RequestIt.ViewModels.GebruikersAanvragenStatusViewModel>
+@{
+    ViewData["Title"] = "IndexGebruikerAanvragen";
+}
+
+<h2>Aanvragen van de Klanten</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Voornaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Achternaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gebruikersnaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aanvragen)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Voornaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Achternaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gebruikersnaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aanvragen.Count)
+                </td></tr>
+        }
+    </tbody>
+</table>
+
+
+
+

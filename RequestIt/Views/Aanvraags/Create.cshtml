@@ -38,7 +38,8 @@
                     <a class="btn btn-info" asp-route-userId="@Model.UserId" asp-action="Index">Terug naar overzicht</a>
 
                 </div>
-                <input asp-for="UserId" type="hidden" />
+            <input asp-for="UserId" type="hidden" />
+            <input asp-for="StatusId" value="43" type="hidden" />
                 <input asp-for="StartDatum" value="@DateTime.Now" type="hidden" />
                 </form>
     </div>

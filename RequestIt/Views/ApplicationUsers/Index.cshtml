@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RequestIt.Models.ApplicationUser>
+﻿@model IEnumerable<RequestIt.ViewModels.UserRoleViewModel>
 @using RequestIt.Utility
 @{
        ViewData["Title"] = "Index";
@@ -6,7 +6,7 @@
 
 <h2>Gebruiker Management</h2>
 
-<form asp-controller="ApplicationUser" asp-action="Index" method="get">
+<form asp-controller="ApplicationUsers" asp-action="Index" method="get">
     <p>
         <hr />
         <a asp-action="Register" asp-controller="Account" class="btn btn-sm btn-primary">Maak Niewe gebruiker aan</a>
@@ -43,7 +43,7 @@
                     @Html.DisplayNameFor(model => model.UserName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model)
                 </th>                
                 <th>
                     @Html.DisplayNameFor(model => model.PhoneNumber)

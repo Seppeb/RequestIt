@@ -1,8 +1,5 @@
 ﻿using RequestIt.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RequestIt.Data
 {
@@ -12,6 +9,11 @@ namespace RequestIt.Data
         {
             context.Database.EnsureCreated();
             //eventueel opvulling van de database. Redelijk moeilijk voor users? 
+
+            if (context.Status.Any())
+            {
+                return;
+            }
 
             var statussen = new Status[]
             {

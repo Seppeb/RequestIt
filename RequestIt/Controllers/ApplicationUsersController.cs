@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RequestIt.Data;
 using RequestIt.Models;
+using RequestIt.ViewModels;
 
 namespace RequestIt.Controllers
 {
@@ -20,43 +21,64 @@ namespace RequestIt.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "Admin")]
+
         // GET: ApplicationUsers
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string option=null, string search=null)
         {
-            var users = await _context.ApplicationUser.ToListAsync();
-            if (option == "email" && search != null)
-            {
-                users = await _context.ApplicationUser.Where(a => a.Email.ToLower().Contains(search.ToLower())).ToListAsync();
-            }
-            else if (option == "name" && search != null)
-            {
-                users = await _context.ApplicationUser.Where(a => a.Voornaam.ToLower().Contains(search.ToLower()) || a.Achternaam.ToLower().Contains(search.ToLower())).ToListAsync();
+            var lst = from u in _context.Users
+                join ur in _context.UserRoles
+                    on u.Id equals ur.UserId
+                join r in _context.Roles
+                    on ur.RoleId equals r.Id
+                select new { u.UserName, u.Voornaam, u.Achternaam,u.Id, u.PhoneNumber, r.Name };
 
-            }
-            else
+            List<UserRoleViewModel> lijstUserMetRoles  = new List<UserRoleViewModel>();
+            foreach (var item in lst)
             {
-                if (option == "phone" && search != null)
+                UserRoleViewModel u = new UserRoleViewModel
                 {
-                    users = await _context.ApplicationUser.Where(a => a.PhoneNumber.ToLower().Contains(search.ToLower())).ToListAsync();
-
-                }
+                    UserName = item.UserName,
+                    Voornaam = item.Voornaam,
+                    Achternaam = item.Achternaam,
+                    PhoneNumber = item.PhoneNumber,
+                    UserId = item.Id,
+                    RoleName = item.Name
+                };
             }
-            return View(users);
+
+            var result = await lst.ToListAsync();
+
+            return View(result);
         }
 
-        [Authorize(Roles ="Admin")]
-        [Authorize(Roles ="Behandelaar")]
-        public async Task<IActionResult> AanvraagPerUser()
+        [Authorize(Roles = "Admin,Behandelaar")]
+        public async Task<IActionResult> IndexGebruikerAanvragen()
         {
-            var users = await _context.ApplicationUser.ToListAsync();
-            var aanvragen = await _context.Aanvragen.ToListAsync();
+            var UsersAanvragen = _context.Users.Include(u => u.Aanvragen);
 
-            return View();
+            List<GebruikersAanvragenStatusViewModel> lijstGebrAanStat = new List<GebruikersAanvragenStatusViewModel>();
+
+            foreach (var item in UsersAanvragen)
+            {
+                GebruikersAanvragenStatusViewModel u = new GebruikersAanvragenStatusViewModel
+                {
+                    UserId = item.Id,
+                    Voornaam = item.Voornaam,
+                    Achternaam = item.Achternaam,
+                    Gebruikersnaam = item.UserName,
+                   
+                    Aanvragen = item.Aanvragen
+                };
+                lijstGebrAanStat.Add(u);
+            }
+            
+            return View(lijstGebrAanStat);
         }
 
-        [Authorize(Roles = "Admin")]
+
         // GET: ApplicationUsers/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)

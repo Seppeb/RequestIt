@@ -36,7 +36,9 @@ namespace RequestIt.Models
 
 
         // relatie met status
-        public ICollection<Status> Statussen { get; set; }
+        public int StatusId { get; set; }
+        [ForeignKey("StatusId")]
+        public virtual Status Status { get; set; }
 
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RequestIt.Models
 {
@@ -14,9 +14,8 @@ namespace RequestIt.Models
 
         //Relatie met aanvraag
 
-        public int? AanvraagId { get; set; }
-        [ForeignKey("AanvraagId")]
-        public virtual Aanvraag aanvraag { get; set; }
+        [Required]
+        public ICollection<Aanvraag> Aanvragen { get; set; }
         
 
     }
