@@ -1,14 +1,14 @@
-﻿@model RequestIt.ViewModels.AanvraagCustomerIndexViewModel
+﻿@model IEnumerable<RequestIt.Models.ApplicationUser>
 @{
        ViewData["Title"] = "Index";
 }
 
-<h2>Gebruikers</h2>
+<h2>Gebruiker Management</h2>
 
 <form asp-controller="ApplicationUser" asp-action="Index" method="get">
     <p>
         <hr />
-        <a asp-action="Create" class="btn btn-sm btn-primary">Maak Niewe gebruiker aan</a>
+        <a asp-action="Register" asp-controller="Account" class="btn btn-sm btn-primary">Maak Niewe gebruiker aan</a>
         <div class="row">
             <div class="col-sm-12 text-right">
                 <b>Search: </b>
@@ -33,28 +33,28 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserObj.Voornaam)
+                    @Html.DisplayNameFor(model => model.Voornaam)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserObj.Achternaam)
+                    @Html.DisplayNameFor(model => model.Achternaam)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserObj.UserName)
+                    @Html.DisplayNameFor(model => model.UserName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserObj.Email)
+                    @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserObj.EmailConfirmed)
+                    @Html.DisplayNameFor(model => model.EmailConfirmed)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserObj.PhoneNumber)
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Users)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -75,12 +75,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PhoneNumber)
-                    </td>
-                    <td>
-                        <a asp-controller="Aanvraags" asp-action="Index" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Aanvragen</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-sm btn-primary glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a> 
+                    </td>                    
+                    <td align="right">
+                        <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a> 
                         <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a> 
                         <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
                     </td>

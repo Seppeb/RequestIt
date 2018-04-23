@@ -11,7 +11,7 @@ using RequestIt.Models;
 
 namespace RequestIt.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    
     public class ApplicationUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,7 +20,7 @@ namespace RequestIt.Controllers
         {
             _context = context;
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: ApplicationUsers
         public async Task<IActionResult> Index(string option=null, string search=null)
         {
@@ -45,6 +45,12 @@ namespace RequestIt.Controllers
             return View(users);
         }
 
+        public async Task<IActionResult> AanvraagPerUser()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
         // GET: ApplicationUsers/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -62,7 +68,7 @@ namespace RequestIt.Controllers
 
             return View(applicationUser);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: ApplicationUsers/Create
         public IActionResult Create()
         {
@@ -72,6 +78,7 @@ namespace RequestIt.Controllers
         // POST: ApplicationUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Voornaam,Achternaam,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
@@ -85,7 +92,9 @@ namespace RequestIt.Controllers
             return View(applicationUser);
         }
 
+      
         // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -104,6 +113,7 @@ namespace RequestIt.Controllers
         // POST: ApplicationUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Voornaam,Achternaam,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
@@ -137,6 +147,7 @@ namespace RequestIt.Controllers
         }
 
         // GET: ApplicationUsers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -155,6 +166,7 @@ namespace RequestIt.Controllers
         }
 
         // POST: ApplicationUsers/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)

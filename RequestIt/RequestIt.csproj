@@ -10,6 +10,10 @@
     <Compile Remove="Data\Migrations\20180423094946_aanvraagviewmodels.Designer.cs" />
     <Compile Remove="Data\Migrations\20180423095511_AutoStartdate.cs" />
     <Compile Remove="Data\Migrations\20180423095511_AutoStartdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180423111715_Status.cs" />
+    <Compile Remove="Data\Migrations\20180423111715_Status.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180423111816_StatusAdd.cs" />
+    <Compile Remove="Data\Migrations\20180423111816_StatusAdd.Designer.cs" />
   </ItemGroup>
 
 

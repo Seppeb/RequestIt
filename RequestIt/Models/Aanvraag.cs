@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RequestIt.Models
 {
@@ -29,12 +27,16 @@ namespace RequestIt.Models
         [Display(Name = "Link van de behandelaar")]
         public string LinkVoorbeeldBehandelaar { get; set; }
 
-        //relaties
+        //relatie met berichten
         public ICollection<Bericht> Berichten { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+
+        // relatie met status
+        public ICollection<Status> Statussen { get; set; }
 
     }
 }

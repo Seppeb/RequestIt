@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RequestIt.Models;
 
@@ -15,8 +11,7 @@ namespace RequestIt.Data
         {
         }
 
-        public DbSet<Aanvraag> Aanvragen { get; set; }
-        public DbSet<Bericht> Berichten { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +21,9 @@ namespace RequestIt.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<RequestIt.Models.ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<Aanvraag> Aanvragen { get; set; }
+        public DbSet<Bericht> Berichten { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }

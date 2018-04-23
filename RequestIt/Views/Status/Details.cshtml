@@ -1,0 +1,36 @@
+﻿@model RequestIt.Models.Status
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Status</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Naam)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Naam)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Omschrijving)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.aanvraag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.aanvraag.Omschrijving)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

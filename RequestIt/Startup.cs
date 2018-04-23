@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RequestIt.Data;
 using RequestIt.Models;
 using RequestIt.Services;
-using RequestIt.Configuration;
 
 namespace RequestIt
 {
@@ -38,10 +33,24 @@ namespace RequestIt
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+        //    services.AddAuthentication().AddFacebook(options =>
+        //    {
+        //        options.AppId = Configuration["auth:facebook:appid"];
+        //        options.AppSecret = Configuration["auth:facebook:appsecret"];
+        //    });
+
+        //    services.AddAuthentication()
+        //.AddGoogle(options =>
+        //{
+        //    options.ClientId = Configuration["auth:google:clientid"];
+        //    options.ClientSecret = Configuration["auth:google:clientsecret"];
+        //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env/*, ApplicationDbContext context*/)
         {
             if (env.IsDevelopment())
             {
@@ -63,7 +72,11 @@ namespace RequestIt
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });           
+            });
+
+         //   DbInit.Init(context);
+           
         }
+        
     }
 }

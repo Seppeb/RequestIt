@@ -11,9 +11,10 @@ using System;
 namespace RequestIt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180423112413_Status")]
+    partial class Status
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,7 +231,7 @@ namespace RequestIt.Data.Migrations
 
                     b.HasIndex("AanvraagId");
 
-                    b.ToTable("Berichten");
+                    b.ToTable("Bericht");
                 });
 
             modelBuilder.Entity("RequestIt.Models.Status", b =>
