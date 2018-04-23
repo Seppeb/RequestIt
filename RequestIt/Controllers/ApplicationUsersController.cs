@@ -45,8 +45,13 @@ namespace RequestIt.Controllers
             return View(users);
         }
 
+        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Behandelaar")]
         public async Task<IActionResult> AanvraagPerUser()
         {
+            var users = await _context.ApplicationUser.ToListAsync();
+            var aanvragen = await _context.Aanvragen.ToListAsync();
+
             return View();
         }
 

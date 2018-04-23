@@ -10,6 +10,7 @@ html {
       -ms-text-size-adjust: 100%;
 }
 body {
+    padding-top: 70px;
   margin: 0;
 }
 article,
@@ -239,6 +240,7 @@ th {
     page-break-after: avoid;
   }
   .navbar {
+      padding-bottom: 70px;
     display: none;
   }
   .btn > .caret,

@@ -21,16 +21,10 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Omschrijving)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.aanvraag)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.aanvraag.Omschrijving)
-        </dd>
+        </dd>        
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a class="btn btn-info" asp-action="Index">Back to List</a>
 </div>

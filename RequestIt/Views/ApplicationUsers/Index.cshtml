@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<RequestIt.Models.ApplicationUser>
+@using RequestIt.Utility
 @{
        ViewData["Title"] = "Index";
 }
@@ -43,14 +44,15 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmailConfirmed)
-                </th>
+                </th>                
                 <th>
                     @Html.DisplayNameFor(model => model.PhoneNumber)
                 </th>
-                <th></th>
+                <th>
+                    Rol
+                </th>
+                
+                
             </tr>
         </thead>
         <tbody>
@@ -68,14 +70,26 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EmailConfirmed)
-                    </td>
+                    </td>                    
                     <td>
                         @Html.DisplayFor(modelItem => item.PhoneNumber)
-                    </td>                    
+                    </td>          
+                    <td>
+                        @*@if (Model.IsAdmin == true)
+                        {
+                            "Admin";
+
+                        }
+                        else if (Model.IsBehandelaar == true)
+                        {
+                            "Beheerder";
+                        }
+                        else
+                        {
+                            "klant";
+                        }*@
+                    </td>
+
                     <td align="right">
                         <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a> 
                         <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a> 

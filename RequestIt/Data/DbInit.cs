@@ -11,8 +11,6 @@ namespace RequestIt.Data
         public static void Init(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();
-
-
             //eventueel opvulling van de database. Redelijk moeilijk voor users? 
 
             var statussen = new Status[]

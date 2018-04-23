@@ -14,7 +14,7 @@ namespace RequestIt.Models
 
         //Relatie met aanvraag
 
-        public int AanvraagId { get; set; }
+        public int? AanvraagId { get; set; }
         [ForeignKey("AanvraagId")]
         public virtual Aanvraag aanvraag { get; set; }
         
