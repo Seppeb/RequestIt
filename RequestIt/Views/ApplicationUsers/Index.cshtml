@@ -1,0 +1,91 @@
+﻿@model RequestIt.ViewModels.AanvraagCustomerIndexViewModel
+@{
+       ViewData["Title"] = "Index";
+}
+
+<h2>Gebruikers</h2>
+
+<form asp-controller="ApplicationUser" asp-action="Index" method="get">
+    <p>
+        <hr />
+        <a asp-action="Create" class="btn btn-sm btn-primary">Maak Niewe gebruiker aan</a>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <b>Search: </b>
+                <label class="radio-inline">@Html.RadioButton("option", "name")Naam</label>
+                <label class="radio-inline">@Html.RadioButton("option", "email")Email</label>
+                <label class="radio-inline">@Html.RadioButton("option", "phone")Telefoon</label>
+            </div>
+        </div>
+        <div class=" row">
+            <div class="pull-right">
+                <button type="submit" name="submit" value="Search" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+            <div class="pull-right">
+                @Html.Editor("search", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <hr />
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserObj.Voornaam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserObj.Achternaam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserObj.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserObj.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserObj.EmailConfirmed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserObj.PhoneNumber)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Users)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Voornaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Achternaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        <a asp-controller="Aanvraags" asp-action="Index" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Aanvragen</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-primary glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a> 
+                        <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a> 
+                        <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

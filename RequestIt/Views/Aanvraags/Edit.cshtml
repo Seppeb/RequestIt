@@ -1,0 +1,62 @@
+﻿@model RequestIt.Models.Aanvraag
+@using RequestIt.Utility
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Aanvraag</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Titel" class="control-label"></label>
+                <input asp-for="Titel" class="form-control" />
+                <span asp-validation-for="Titel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Omschrijving" class="control-label"></label>
+                <input asp-for="Omschrijving" class="form-control" />
+                <span asp-validation-for="Omschrijving" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkVoorbeeldKlant" class="control-label"></label>
+                <input asp-for="LinkVoorbeeldKlant" class="form-control" />
+                <span asp-validation-for="LinkVoorbeeldKlant" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.BehandelaarEndUser))
+    {
+        <div class="form-group">
+            <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
+            <input asp-for="LinkVoorbeeldBehandelaar" class="form-control" />
+            <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
+        </div>
+}
+else
+{
+        <div class="form-group">
+            <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
+            <input asp-for="LinkVoorbeeldBehandelaar" disabled class="form-control" />
+            <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
+        </div>
+}
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

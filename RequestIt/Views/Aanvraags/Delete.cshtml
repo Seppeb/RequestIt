@@ -1,0 +1,57 @@
+﻿@model RequestIt.Models.Aanvraag
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Annuleren</h2>
+
+<h3>Bent u zeker dat u de aanvraag wilt annuleren?</h3>
+<div>
+    <h4>De aanvraag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Titel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Omschrijving)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDatum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EindDatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EindDatum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkVoorbeeldKlant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LinkVoorbeeldKlant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkVoorbeeldBehandelaar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LinkVoorbeeldBehandelaar)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Verwijderen" class="btn btn-danger" />
+        <a class="btn btn-info" asp-action="Index">Back to List</a>
+    </form>
+</div>

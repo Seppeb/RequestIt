@@ -1,0 +1,18 @@
+﻿@{
+
+    if (this.User.IsInRole("Admin"))
+    {
+        Layout = "_LayoutAdmin.cshtml";
+    }
+    else if (this.User.IsInRole("Behandelaar"))
+    {
+        Layout = "_LayoutBehandelaar.cshtml";
+    }
+    else if (this.User.IsInRole("Klant"))
+    {
+        Layout = "_LayoutKlant.cshtml";
+    }else
+    {
+        Layout = "_LayoutGuest";
+    }
+}

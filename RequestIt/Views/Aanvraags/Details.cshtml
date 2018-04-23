@@ -1,0 +1,54 @@
+﻿@model RequestIt.Models.Aanvraag
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Aanvraag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Titel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Omschrijving)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDatum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EindDatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EindDatum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkVoorbeeldKlant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LinkVoorbeeldKlant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkVoorbeeldBehandelaar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LinkVoorbeeldBehandelaar)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> 
+    <a class="btn btn-info" asp-action="Index">Back to List</a>
+</div>

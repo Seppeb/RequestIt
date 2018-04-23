@@ -1,0 +1,104 @@
+﻿@model RequestIt.ViewModels.AanvraagAndCustomerViewModel
+@using RequestIt.Utility
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Overzicht van alle aanvragen</h2>
+
+<hr />
+
+<div class="row" style="padding-bottom:80px;">
+    <div class="col-sm-6" style="padding-bottom:80px;">
+        <a class="btn btn-primary" asp-action="Create"asp-route-userId="@Model.UserObj.Id">Nieuwe Aanvraag</a>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Voornaam" class="control-label"></label>
+            </div>
+            <div class=" col-sm-8">
+                <input asp-for="UserObj.Voornaam" class="form-control" disabled />
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Achternaam" class="control-label"></label>
+            </div>
+            <div class=" col-sm-8">
+                <input asp-for="UserObj.Achternaam" class="form-control" disabled />
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Email" class="control-label"></label>
+            </div>
+            <div class=" col-sm-8">
+                <input asp-for="UserObj.Email" class="form-control" disabled />
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="UserObj.PhoneNumber" class="control-label"></label>
+            </div>
+            <div class=" col-sm-8">
+                <input asp-for="UserObj.PhoneNumber" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@if (Model.Aanvragen.Count() == 0)
+{
+    <div class="text-primary"> Geen Aanvragen gevonden, voeg een aanvraag toe</div>
+}
+else
+{
+    <table class="table-bordered table-striped" width="100%">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Titel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Omschrijving)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().StartDatum)
+            </th>         
+            <td>Controls</td>
+        </tr>
+        @foreach(var item in Model.Aanvragen)
+        {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(m => item.Titel)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(m => item.Omschrijving)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.StartDatum)
+            </td>
+            @if (User.IsInRole(SD.KlantEndUser))
+            {
+                // Hier komt te staan welke status de aanvraag heeft                
+            }
+            else if(User.IsInRole(SD.AdminEndUser))
+            {
+                // Dropdown select van alle status om status aan te passen
+            }
+            else
+            {
+                // als hij geen klant of admin is en dus behandelaar laten we ook statussen zien die beschikbaar zijn voor behandelaar
+            }   
+            
+                <td class="">
+                    <a class="btn btn-sm btn-primary glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a>
+                    <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a>
+                    <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+                </td>
+            
+        </tr>
+
+        }
+    </table>
+}
