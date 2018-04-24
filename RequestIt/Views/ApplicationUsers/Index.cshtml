@@ -43,16 +43,11 @@
                     @Html.DisplayNameFor(model => model.UserName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model)
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
                 </th>                
                 <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </th>
-                <th>
-                    Rol
-                </th>
-                
-                
+                    @Html.DisplayNameFor(model => model.RoleName)
+                </th>                      
             </tr>
         </thead>
         <tbody>
@@ -69,31 +64,15 @@
                         @Html.DisplayFor(modelItem => item.UserName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Email)
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
                     </td>                    
                     <td>
-                        @Html.DisplayFor(modelItem => item.PhoneNumber)
-                    </td>          
-                    <td>
-                        @*@if (Model.IsAdmin == true)
-                        {
-                            "Admin";
-
-                        }
-                        else if (Model.IsBehandelaar == true)
-                        {
-                            "Beheerder";
-                        }
-                        else
-                        {
-                            "klant";
-                        }*@
-                    </td>
-
-                    <td align="right">
-                        <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a> 
-                        <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a> 
-                        <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+                        @Html.DisplayFor(modelItem => item.RoleName)
+                    </td>         
+                     <td align="right">
+                        <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.UserId"></a> 
+                        <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.UserId"></a> 
+                        <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.UserId"></a>
                     </td>
                 </tr>
             }

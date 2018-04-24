@@ -10,5 +10,7 @@ namespace RequestIt.ViewModels
     {
         public ApplicationUser UserObj { get; set; }
         public IEnumerable<Aanvraag> Aanvragen { get; set; }
+        public Status Status { get; set; }       
+
     }
 }

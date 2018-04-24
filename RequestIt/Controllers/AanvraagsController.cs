@@ -24,16 +24,15 @@ namespace RequestIt.Controllers
         }
 
         // GET: Aanvraags
-        public async Task<IActionResult> Index(string userId = null)
+        public async Task<IActionResult> Index()
         {
-            if (userId == null)
-            {
-                userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            }
-
+           
+                      
+           string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
             var model = new AanvraagAndCustomerViewModel
-            {
-                Aanvragen = _context.Aanvragen.Where(a => a.UserId == userId),
+            {                
+                Aanvragen = _context.Aanvragen.Where(a=>a.UserId == userId).Include(a => a.Status),
                 UserObj = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId)
             };
 

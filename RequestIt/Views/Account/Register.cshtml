@@ -6,67 +6,123 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Maakt een nieuw account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Voornaam"></label>
-                <input asp-for="Voornaam" class="form-control" />
-                <span asp-validation-for="Voornaam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Achternaam"></label>
-                <input asp-for="Achternaam" class="form-control" />
-                <span asp-validation-for="Achternaam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TelefoonNummer"></label>
-                <input asp-for="TelefoonNummer" class="form-control" />
-                <span asp-validation-for="TelefoonNummer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
+@if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.BehandelaarEndUser) || User.IsInRole(SD.KlantEndUser))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <h4>Pas je account aan</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Voornaam"></label>
+                    <input asp-for="Voornaam" class="form-control" />
+                    <span asp-validation-for="Voornaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Achternaam"></label>
+                    <input asp-for="Achternaam" class="form-control" />
+                    <span asp-validation-for="Achternaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TelefoonNummer"></label>
+                    <input asp-for="TelefoonNummer" class="form-control" />
+                    <span asp-validation-for="TelefoonNummer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>    
+                    <button type="submit" class="btn btn-primary">Pas aan</button>
+                
 
-            @if (User.IsInRole(SD.AdminEndUser))
-    {
-        <div class="form-group">
-            <label asp-for="IsAdmin"></label>
-            <input asp-for="IsAdmin" type="checkbox" class="form-control" />
+            </form>
         </div>
-        <div class="form-group">
-            <label asp-for="IsBehandelaar"></label>
-            <input asp-for="IsBehandelaar" type="checkbox" class="form-control" />
-        </div>
-}
-            @if (User.IsInRole(SD.AdminEndUser))
-    {
-        <button type="submit" class="btn btn-default">klant toevoegen</button>
+    </div>
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
 }
 else
 {
-        <button type="submit" class="btn btn-default">Registreer</button>
-}
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <h4>Maakt een nieuw account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Voornaam"></label>
+                    <input asp-for="Voornaam" class="form-control" />
+                    <span asp-validation-for="Voornaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Achternaam"></label>
+                    <input asp-for="Achternaam" class="form-control" />
+                    <span asp-validation-for="Achternaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TelefoonNummer"></label>
+                    <input asp-for="TelefoonNummer" class="form-control" />
+                    <span asp-validation-for="TelefoonNummer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
 
-        </form>
+                @if (User.IsInRole(SD.AdminEndUser))
+                {
+                    <div class="form-group">
+                        <label asp-for="IsAdmin"></label>
+                        <input asp-for="IsAdmin" type="checkbox" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsBehandelaar"></label>
+                        <input asp-for="IsBehandelaar" type="checkbox" class="form-control" />
+                    </div>
+                }
+                @if (User.IsInRole(SD.AdminEndUser))
+                {
+                    <button type="submit" class="btn btn-default">klant toevoegen</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-default">Registreer</button>
+                }
+
+            </form>
+        </div>
     </div>
-</div>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+
+
 }
+
+

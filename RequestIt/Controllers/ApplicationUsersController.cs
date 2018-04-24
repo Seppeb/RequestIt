@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,8 @@ namespace RequestIt.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string option=null, string search=null)
         {
+
+            //data ophalen joins
             var lst = from u in _context.Users
                 join ur in _context.UserRoles
                     on u.Id equals ur.UserId
@@ -33,7 +36,10 @@ namespace RequestIt.Controllers
                     on ur.RoleId equals r.Id
                 select new { u.UserName, u.Voornaam, u.Achternaam,u.Id, u.PhoneNumber, r.Name };
 
+            //viewmodel initialisersn
             List<UserRoleViewModel> lijstUserMetRoles  = new List<UserRoleViewModel>();
+
+            //opvullen van viewmodel met data
             foreach (var item in lst)
             {
                 UserRoleViewModel u = new UserRoleViewModel
@@ -45,35 +51,23 @@ namespace RequestIt.Controllers
                     UserId = item.Id,
                     RoleName = item.Name
                 };
-            }
+                lijstUserMetRoles.Add(u);
+            }           
 
-            var result = await lst.ToListAsync();
-
-            return View(result);
+            return View(lijstUserMetRoles);
         }
 
         [Authorize(Roles = "Admin,Behandelaar")]
         public async Task<IActionResult> IndexGebruikerAanvragen()
         {
-            var UsersAanvragen = _context.Users.Include(u => u.Aanvragen);
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            List<GebruikersAanvragenStatusViewModel> lijstGebrAanStat = new List<GebruikersAanvragenStatusViewModel>();
-
-            foreach (var item in UsersAanvragen)
+            var lijst = new AanvraagAndCustomersStatusViewModel
             {
-                GebruikersAanvragenStatusViewModel u = new GebruikersAanvragenStatusViewModel
-                {
-                    UserId = item.Id,
-                    Voornaam = item.Voornaam,
-                    Achternaam = item.Achternaam,
-                    Gebruikersnaam = item.UserName,
-                   
-                    Aanvragen = item.Aanvragen
-                };
-                lijstGebrAanStat.Add(u);
-            }
-            
-            return View(lijstGebrAanStat);
+
+            };
+          
+            return View(lijst);
         }
 
 

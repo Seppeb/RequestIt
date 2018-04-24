@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using RequestIt.Data;
 using System;
 
@@ -303,7 +305,7 @@ namespace RequestIt.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RequestIt.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Aanvragen")
                         .HasForeignKey("UserId");
                 });
 

@@ -20,6 +20,16 @@
                 <span asp-validation-for="Titel" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status.Naam" disabled class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            
+               
+                <input asp-for="StatusId" value="@Model.StatusId" disabled class="form-control" type="hidden" />
+               
+            
+            <div class="form-group">
                 <label asp-for="Omschrijving" class="control-label"></label>
                 <input asp-for="Omschrijving" class="form-control" />
                 <span asp-validation-for="Omschrijving" class="text-danger"></span>
@@ -36,6 +46,7 @@
             <input asp-for="LinkVoorbeeldBehandelaar" class="form-control" />
             <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
         </div>
+
 }
 else
 {
@@ -43,6 +54,7 @@ else
             <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
             <input asp-for="LinkVoorbeeldBehandelaar" disabled class="form-control" />
             <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
+
         </div>
 }
 

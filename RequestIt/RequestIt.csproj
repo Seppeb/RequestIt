@@ -14,6 +14,8 @@
     <Compile Remove="Data\Migrations\20180423111715_Status.Designer.cs" />
     <Compile Remove="Data\Migrations\20180423111816_StatusAdd.cs" />
     <Compile Remove="Data\Migrations\20180423111816_StatusAdd.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180423170121_VerbeterenRelatieStatusAanvraag.cs" />
+    <Compile Remove="Data\Migrations\20180423170121_VerbeterenRelatieStatusAanvraag.Designer.cs" />
   </ItemGroup>
 
 

@@ -1,4 +1,5 @@
 ﻿@model RequestIt.Models.Aanvraag
+@using RequestIt.Utility;
 
 @{
     ViewData["Title"] = "Create";
@@ -21,27 +22,40 @@
                 <label asp-for="Omschrijving" class="control-label"></label>
                 <input asp-for="Omschrijving" class="form-control input-lg" />
                 <span asp-validation-for="Omschrijving" class="text-danger"></span>
-            </div>           
+            </div>
 
-                <div class="form-group">
-                    <label asp-for="LinkVoorbeeldKlant" class="control-label"></label>
-                    <input asp-for="LinkVoorbeeldKlant" class="form-control" />
-                    <span asp-validation-for="LinkVoorbeeldKlant" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
-                    <input asp-for="LinkVoorbeeldBehandelaar" class="form-control" />
-                    <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                    <a class="btn btn-info" asp-route-userId="@Model.UserId" asp-action="Index">Terug naar overzicht</a>
+            <div class="form-group">
+                <label asp-for="LinkVoorbeeldKlant" class="control-label"></label>
+                <input asp-for="LinkVoorbeeldKlant" class="form-control" />
+                <span asp-validation-for="LinkVoorbeeldKlant" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole(SD.BehandelaarEndUser))
+    {
+        <div class="form-group">
+            <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
+            <input asp-for="LinkVoorbeeldBehandelaar" class="form-control" />
+            <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
+        </div>
+}
+else if (User.IsInRole(SD.AdminEndUser))
+{
+        <div class="form-group">
+            <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
+            <input asp-for="LinkVoorbeeldBehandelaar" class="form-control" />
+            <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
+        </div>
+}
 
-                </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+                <a class="btn btn-info" asp-route-userId="@Model.UserId" asp-action="Index">Terug naar overzicht</a>
+
+            </div>
             <input asp-for="UserId" type="hidden" />
-            <input asp-for="StatusId" value="43" type="hidden" />
-                <input asp-for="StartDatum" value="@DateTime.Now" type="hidden" />
-                </form>
+            <input asp-for="StatusId" type="hidden" value="1010" />
+            <input asp-for="StartDatum" value="@DateTime.Now" type="hidden" />
+        </form>
     </div>
 </div>
 

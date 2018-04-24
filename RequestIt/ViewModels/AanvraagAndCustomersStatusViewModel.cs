@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RequestIt.ViewModels
 {
-    public class Aanvragenperklant
+    public class AanvraagAndCustomersStatusViewModel
     {
-        public IEnumerable<ApplicationUser> Users { get; set; }
+        public ApplicationUser Users { get; set; }
         public IEnumerable<Aanvraag> Aanvragen { get; set; }
-        public IEnumerable<Status> statuses { get; set; }
+        public Status Status { get; set; }     
     }
 }

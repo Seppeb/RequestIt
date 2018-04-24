@@ -1,5 +1,4 @@
 ﻿@model RequestIt.ViewModels.AanvraagAndCustomerViewModel
-@using RequestIt.Utility
 
 
 @{
@@ -10,39 +9,10 @@
 
 <hr />
 
-<div class="row" style="padding-bottom:80px;">
+<div class="row">
     <div class="col-sm-6" style="padding-bottom:80px;">
         <a class="btn btn-primary" asp-action="Create"asp-route-userId="@Model.UserObj.Id">Nieuwe Aanvraag</a>
-    </div>
-    <div class="col-sm-6">
-        <div class="row">
-            <div class="col-sm-4">
-                <label asp-for="UserObj.Voornaam" class="control-label"></label>
-            </div>
-            <div class=" col-sm-8">
-                <input asp-for="UserObj.Voornaam" class="form-control" disabled />
-            </div>
-            <div class="col-sm-4">
-                <label asp-for="UserObj.Achternaam" class="control-label"></label>
-            </div>
-            <div class=" col-sm-8">
-                <input asp-for="UserObj.Achternaam" class="form-control" disabled />
-            </div>
-            <div class="col-sm-4">
-                <label asp-for="UserObj.Email" class="control-label"></label>
-            </div>
-            <div class=" col-sm-8">
-                <input asp-for="UserObj.Email" class="form-control" disabled />
-            </div>
-            <div class="col-sm-4">
-                <label asp-for="UserObj.PhoneNumber" class="control-label"></label>
-            </div>
-            <div class=" col-sm-8">
-                <input asp-for="UserObj.PhoneNumber" class="form-control" disabled />
-            </div>
-        </div>
-    </div>
-
+    </div>    
 </div>
 
 @if (Model.Aanvragen.Count() == 0)
@@ -61,8 +31,13 @@ else
             </th>
             <th>
                 @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().StartDatum)
-            </th>         
-            <td>Controls</td>
+            </th>
+            <th>
+                Status
+            </th>       
+            <td class="text-left" style="font-weight:bold">
+                Controls
+            </td>
         </tr>
         @foreach(var item in Model.Aanvragen)
         {
@@ -77,21 +52,11 @@ else
             </td>
             <td>
                 @Html.DisplayFor(m => item.StartDatum)
+            </td>   
+            <td>
+                @Html.DisplayFor(m => item.Status.Naam)
             </td>
-            @if (User.IsInRole(SD.KlantEndUser))
-            {
-                // Hier komt te staan welke status de aanvraag heeft                
-            }
-            else if(User.IsInRole(SD.AdminEndUser))
-            {
-                // Dropdown select van alle status om status aan te passen
-            }
-            else
-            {
-                // als hij geen klant of admin is en dus behandelaar laten we ook statussen zien die beschikbaar zijn voor behandelaar
-            }   
-            
-                <td class="">
+                <td class="text-left">
                     <a class="btn btn-sm btn-primary glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a>
                     <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a>
                     <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>

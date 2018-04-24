@@ -11,8 +11,8 @@ using System;
 namespace RequestIt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180423170121_VerbeterenRelatieStatusAanvraag")]
-    partial class VerbeterenRelatieStatusAanvraag
+    [Migration("20180424115712_statusid")]
+    partial class statusid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -306,7 +306,7 @@ namespace RequestIt.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RequestIt.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Aanvragen")
                         .HasForeignKey("UserId");
                 });
 

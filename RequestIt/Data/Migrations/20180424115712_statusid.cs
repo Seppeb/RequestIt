@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RequestIt.Data.Migrations
 {
-    public partial class VerbeterenRelatieStatusAanvraag : Migration
+    public partial class statusid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
