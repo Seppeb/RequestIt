@@ -60,13 +60,26 @@ namespace RequestIt.Controllers
         [Authorize(Roles = "Admin,Behandelaar")]
         public async Task<IActionResult> IndexGebruikerAanvragen()
         {
-            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<UsersAanvraagStatusViewModel> lijst = new List<UsersAanvraagStatusViewModel>();
 
-            var lijst = new AanvraagAndCustomersStatusViewModel
+            var UsersAanvragenStatus = _context.Users
+                .Include(use => (use as ApplicationUser).Aanvragen)
+                    .ThenInclude(aanvraag => (aanvraag as Aanvraag).Status)
+                .ToList();
+
+            foreach (var item in UsersAanvragenStatus)
             {
-
-            };
-          
+                UsersAanvraagStatusViewModel u = new UsersAanvraagStatusViewModel
+                {
+                  Aanvragen = item.Aanvragen,
+                  UserId = item.Id,
+                  Voornaam = item.Voornaam,
+                  Achternaam = item.Achternaam,
+                  UserName = item.UserName,                 
+                  Status = item.Aanvragen.
+                };
+                lijst.Add(u);
+            }          
             return View(lijst);
         }
 

@@ -1,4 +1,4 @@
-﻿@model RequestIt.ViewModels.AanvraagAndCustomersStatusViewModel
+﻿@model IEnumerable<RequestIt.ViewModels.UsersAanvraagStatusViewModel>
 @{
     ViewData["Title"] = "IndexGebruikerAanvragen";
 }
@@ -9,43 +9,42 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Users.Voornaam)
+                @Html.DisplayNameFor(model => model.Voornaam)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Users.Achternaam)
+                @Html.DisplayNameFor(model => model.Achternaam)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Users.UserName)
-            </th>            
-            <th>
-                @Html.DisplayNameFor(model => model.Aanvragen)
-            </th>            
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
-            {
+        {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Users.Voornaam)
+                    @Html.DisplayFor(modelItem => item.Voornaam)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Users.Achternaam)
+                    @Html.DisplayFor(modelItem => item.Achternaam)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Users.UserName)
-                </td> 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Aanvragen.Count())
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
-                <td>
-                    <a asp-route-id="@item.Users.Id" asp-route="Indext" asp-controller="Aanvraags" class="btn btn-sm">Aanvragen</a>
-                </td>                  
-                                       
             </tr>
+
+            @foreach (var aanvraag in item.Aanvragen)
+            {
+            <tr>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Aanvragen)
+                </td>
+            </tr>
+            }
         }
     </tbody>
-</table>
+  </table>
 
 
 

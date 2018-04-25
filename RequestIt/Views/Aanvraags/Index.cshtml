@@ -5,13 +5,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Overzicht van alle aanvragen</h2>
+<h2>Overzicht</h2>
 
 <hr />
 
 <div class="row">
-    <div class="col-sm-6" style="padding-bottom:80px;">
-        <a class="btn btn-primary" asp-action="Create"asp-route-userId="@Model.UserObj.Id">Nieuwe Aanvraag</a>
+    <div class="col-sm-6">
+        <a class="btn btn-primary" asp-action="Create" asp-route-userId="@Model.UserObj.Id">Nieuwe Aanvraag</a>
+        <a class="btn btn-info" asp-action="Create" asp-route-userId="@Model.UserObj.Id">Stel een vraag</a>
+
     </div>    
 </div>
 
@@ -21,49 +23,56 @@
 }
 else
 {
-    <table class="table-bordered table-striped" width="100%">
+    <table class="table-bordered table-striped" width="100%"> <caption>
+    Aanvragen
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Titel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Omschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().StartDatum)
+        </th>
+        <th>
+            Status
+        </th>
+        <td class="text-left" style="font-weight:bold">
+            Controls
+        </td>
+    </tr>
+    @foreach (var item in Model.Aanvragen)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Titel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Omschrijving)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().StartDatum)
-            </th>
-            <th>
-                Status
-            </th>       
-            <td class="text-left" style="font-weight:bold">
-                Controls
-            </td>
-        </tr>
-        @foreach(var item in Model.Aanvragen)
-        {
-        <tr>
-            
+
             <td>
                 @Html.DisplayFor(m => item.Titel)
             </td>
-            
+
             <td>
                 @Html.DisplayFor(m => item.Omschrijving)
             </td>
             <td>
                 @Html.DisplayFor(m => item.StartDatum)
-            </td>   
+            </td>
             <td>
                 @Html.DisplayFor(m => item.Status.Naam)
             </td>
-                <td class="text-left">
-                    <a class="btn btn-sm btn-primary glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a>
-                    <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a>
-                    <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
-                </td>
-            
+            <td class="text-left">
+                <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a>
+                <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a>
+                <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+            </td>
+
         </tr>
 
-        }
-    </table>
+    }
+</caption>
+</table>
 }
+
+<table>
+    <caption>Vragen</caption>
+</table>

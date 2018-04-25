@@ -25,14 +25,12 @@ namespace RequestIt.Controllers
 
         // GET: Aanvraags
         public async Task<IActionResult> Index()
-        {
-           
+        {          
                       
            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
             var model = new AanvraagAndCustomerViewModel
-            {                
-                Aanvragen = _context.Aanvragen.Where(a=>a.UserId == userId).Include(a => a.Status),
+            {
+                Aanvragen = _context.Aanvragen.Where(a => a.UserId == userId).Include(a => a.Status),
                 UserObj = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId)
             };
 
@@ -48,6 +46,7 @@ namespace RequestIt.Controllers
             }
 
             var aanvraag = await _context.Aanvragen
+                .Include(m => m.Status)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (aanvraag == null)
             {
@@ -91,7 +90,7 @@ namespace RequestIt.Controllers
                 return NotFound();
             }
 
-            var aanvraag = await _context.Aanvragen.SingleOrDefaultAsync(m => m.Id == id);
+            var aanvraag = await _context.Aanvragen.Include(m => m.Status).SingleOrDefaultAsync(m => m.Id == id);
             if (aanvraag == null)
             {
                 return NotFound();
@@ -104,7 +103,7 @@ namespace RequestIt.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titel,Omschrijving,StartDatum,EindDatum,LinkVoorbeeldKlant,LinkVoorbeeldBehandelaar")] Aanvraag aanvraag)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titel,Omschrijving,StartDatum,EindDatum,LinkVoorbeeldKlant,LinkVoorbeeldBehandelaar,StatusId,UserId")] Aanvraag aanvraag)
         {
             if (id != aanvraag.Id)
             {
