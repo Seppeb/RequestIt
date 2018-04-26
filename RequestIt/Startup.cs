@@ -40,12 +40,12 @@ namespace RequestIt
         //        options.AppSecret = Configuration["auth:facebook:appsecret"];
         //    });
 
-        //    services.AddAuthentication()
-        //.AddGoogle(options =>
-        //{
-        //    options.ClientId = Configuration["auth:google:clientid"];
-        //    options.ClientSecret = Configuration["auth:google:clientsecret"];
-        //});
+       //     services.AddAuthentication()
+       //.AddGoogle(options =>
+       // {
+       //    options.ClientId = Configuration["auth:google:clientid"];
+       //    options.ClientSecret = Configuration["auth:google:clientsecret"];
+       // });
 
         }
 

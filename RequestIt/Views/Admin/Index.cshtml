@@ -1,0 +1,53 @@
+﻿@model IEnumerable<RequestIt.ViewModels.UsersAanvraagStatusViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Aanvragen van de Klanten</h2>
+<table class="table-hover table-striped table-condensed table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Voornaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Achternaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                Aantal Aanvragen
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Voornaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Achternaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AanvragenCount)
+                 </td>
+                <td>
+                    <a asp-action="Index" asp-controller="Aanvraags" asp-route-Userid="@item.UserId" class="btn btn-sm btn-primary glyphicon glyphicon-search"></a>
+                </td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+

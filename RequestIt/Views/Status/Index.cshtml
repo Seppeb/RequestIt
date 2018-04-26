@@ -1,0 +1,41 @@
+﻿@model IEnumerable<RequestIt.Models.Status>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table-hover table-bordered table-condensed table-responsive">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Naam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Omschrijving)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Omschrijving)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"></a> 
+                <a class="btn btn-sm btn-primary glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"></a> 
+                <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

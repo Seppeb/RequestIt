@@ -22,9 +22,9 @@ namespace RequestIt.Models
         [Display(Name = "Eind Datum")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EindDatum { get; set; }
-        [Display(Name = "Link van de klant")]
+        [Display(Name = "Link klant")]
         public string LinkVoorbeeldKlant { get; set; }
-        [Display(Name = "Link van de behandelaar")]
+        [Display(Name = "Link behandelaar")]
         public string LinkVoorbeeldBehandelaar { get; set; }
 
         //relatie met berichten

@@ -19,6 +19,8 @@ namespace RequestIt.ViewModels
         public string Achternaam { get; set; }
         public string UserName { get; set; }
 
+        public int AanvragenCount { get; set; }
+
 
     }
 }

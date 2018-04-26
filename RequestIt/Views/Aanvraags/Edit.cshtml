@@ -1,4 +1,4 @@
-﻿@model RequestIt.Models.Aanvraag
+﻿@model RequestIt.ViewModels.Statuslijstaanvraag
 @using RequestIt.Utility
 
 @{
@@ -13,52 +13,52 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserId" />
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="StatusId" />
-            <input type="hidden" asp-for="StartDatum" />
+            <input type="hidden" asp-for="Aanvraag.UserId" />
+            <input type="hidden" asp-for="Aanvraag.Id" />
+            <input type="hidden" asp-for="Aanvraag.StatusId" />
+            <input type="hidden" asp-for="Aanvraag.StartDatum" />
             <div class="form-group">
-                <label asp-for="Titel" class="control-label"></label>
-                <input asp-for="Titel" class="form-control" />
-                <span asp-validation-for="Titel" class="text-danger"></span>
+                <label asp-for="Aanvraag.Titel" class="control-label"></label>
+                <input asp-for="Aanvraag.Titel" class="form-control" />
+                <span asp-validation-for="Aanvraag.Titel" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Omschrijving" class="control-label"></label>
-                <input asp-for="Omschrijving" class="form-control" />
-                <span asp-validation-for="Omschrijving" class="text-danger"></span>
+                <label asp-for="Aanvraag.Omschrijving" class="control-label"></label>
+                <textarea asp-for="Aanvraag.Omschrijving" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Aanvraag.Omschrijving" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LinkVoorbeeldKlant" class="control-label"></label>
-                <input asp-for="LinkVoorbeeldKlant" class="form-control" />
-                <span asp-validation-for="LinkVoorbeeldKlant" class="text-danger"></span>
+                <label asp-for="Aanvraag.LinkVoorbeeldKlant" class="control-label"></label>
+                <input asp-for="Aanvraag.LinkVoorbeeldKlant" class="form-control" />
+                <span asp-validation-for="Aanvraag.LinkVoorbeeldKlant" class="text-danger"></span>
             </div>
             @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.BehandelaarEndUser))
-    {
-        <div class="form-group">
-            <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
-            <input asp-for="LinkVoorbeeldBehandelaar" class="form-control" />
-            <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Status" class="control-label"></label>
-            <input asp-for="Status.Naam" class="form-control" />
-            <span asp-validation-for="Status" class="text-danger"></span>
-        </div>
-}
-else
-{
-        <div class="form-group">
-            <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
-            <input asp-for="LinkVoorbeeldBehandelaar" disabled class="form-control" />
-            <span asp-validation-for="LinkVoorbeeldBehandelaar" class="text-danger"></span>
+            {
+                <div class="form-group">
+                    <label asp-for="Aanvraag.LinkVoorbeeldBehandelaar" class="control-label"></label>
+                    <input asp-for="Aanvraag.LinkVoorbeeldBehandelaar" class="form-control" />
+                    <span asp-validation-for="Aanvraag.LinkVoorbeeldBehandelaar" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Aanvraag.Status" class="control-label"></label>
+                    <select asp-for="Aanvraag.Status" asp-items="@(new SelectList(Model.Statusessen,"Name"))" class="form-control" />
+                    <span asp-validation-for="Aanvraag.Status" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="Aanvraag.LinkVoorbeeldBehandelaar" class="control-label"></label>
+                    <input asp-for="Aanvraag.LinkVoorbeeldBehandelaar" readonly class="form-control" />
+                    <span asp-validation-for="Aanvraag.LinkVoorbeeldBehandelaar" class="text-danger"></span>
 
-        </div>
-        <div class="form-group">
-            <label asp-for="Status" class="control-label"></label>
-            <input asp-for="Status.Naam" disabled class="form-control" />
-            <span asp-validation-for="Status" class="text-danger"></span>
-        </div>
-}
+                </div>
+                <div class="form-group">
+                    <label asp-for="Aanvraag.Status" class="control-label"></label>
+                    <input asp-for="Aanvraag.Status.Naam" readonly class="form-control" />
+                    <span asp-validation-for="Aanvraag.Status" class="text-danger"></span>
+                </div>
+            }
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -69,7 +69,7 @@ else
 </div>
 
 <div>
-    
+
 </div>
 
 @section Scripts {
