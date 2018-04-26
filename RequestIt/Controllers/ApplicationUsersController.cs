@@ -60,11 +60,11 @@ namespace RequestIt.Controllers
         [Authorize(Roles = "Admin,Behandelaar")]
         public async Task<IActionResult> IndexGebruikerAanvragen()
         {
-            List<UsersAanvraagStatusViewModel> lijst = new List<UsersAanvraagStatusViewModel>();
+            var lijst = new List<UsersAanvraagStatusViewModel>();
 
             var UsersAanvragenStatus = _context.Users
-                .Include(use => (use as ApplicationUser).Aanvragen)
-                    .ThenInclude(aanvraag => (aanvraag as Aanvraag).Status)
+                .Include(use => use.Aanvragen)
+                    .ThenInclude(aanvraag => aanvraag.Status)
                 .ToList();
 
             foreach (var item in UsersAanvragenStatus)
@@ -75,8 +75,8 @@ namespace RequestIt.Controllers
                   UserId = item.Id,
                   Voornaam = item.Voornaam,
                   Achternaam = item.Achternaam,
-                  UserName = item.UserName,                 
-                  Status = item.Aanvragen.
+                  UserName = item.UserName          
+                  
                 };
                 lijst.Add(u);
             }          

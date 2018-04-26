@@ -10,6 +10,8 @@ namespace RequestIt.ViewModels
     public class UsersAanvraagStatusViewModel
     {
         public IEnumerable<Aanvraag> Aanvragen { get; set; }
+        public Aanvraag Aanvraag { get; set; }
+
         public Status Status { get; set; }        
 
         public string UserId { get; set; }
@@ -17,7 +19,6 @@ namespace RequestIt.ViewModels
         public string Achternaam { get; set; }
         public string UserName { get; set; }
 
-        public Aanvraag Aanvraag { get; set; }
 
     }
 }
