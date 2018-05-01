@@ -161,8 +161,7 @@ namespace RequestIt.Controllers
             
             ApplicationUserEditViewModel create = new ApplicationUserEditViewModel
             {
-                Userbyid = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id)
-                 
+                Userbyid = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id)                 
             };
             
             
