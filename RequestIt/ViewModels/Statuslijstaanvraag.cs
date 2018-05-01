@@ -1,4 +1,6 @@
-﻿using RequestIt.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using RequestIt.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,16 @@ namespace RequestIt.ViewModels
 {
     public class Statuslijstaanvraag
     {
-        public IEnumerable<Status> Statusessen { get; set; }
+
+
+        public int StatusId { get; set; }
+        public SelectList Statusessen { get; set; }
+
+        public string BehandelaarId { get; set; }
+      
         public Aanvraag Aanvraag { get; set; }
+
+
         
     }
 }

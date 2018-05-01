@@ -27,12 +27,23 @@ namespace RequestIt.Models
         [Display(Name = "Link behandelaar")]
         public string LinkVoorbeeldBehandelaar { get; set; }
 
+
+        public bool? IsVraag { get; set; }
+
         //relatie met berichten
         public ICollection<Bericht> Berichten { get; set; }
 
+
+        //relatie met users
+        public string BehandelaarId { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        //relatie met behandelaar
+
+             
+       
 
 
         // relatie met status

@@ -1,0 +1,39 @@
+﻿@model RequestIt.ViewModels.UserManagementIndexViewModel
+
+
+
+<h2>User Management</h2>
+
+<table class="table table-condensed table-responsive">
+    <thead>
+        <tr>
+            <td>
+                Email
+            </td>
+            <td>
+                Roles
+            </td>
+            <td>
+                Options
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>
+                @user.Email
+            </td>
+            <td>
+                
+            </td>
+            <td>
+
+            </td>
+        </tr>
+}
+
+    </tbody>
+</table>
+

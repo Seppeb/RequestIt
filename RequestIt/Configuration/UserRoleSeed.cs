@@ -17,7 +17,7 @@ namespace RequestIt.Configuration
 
         public async void Seed()
         {
-            if ((await _roleManager.FindByNameAsync("Klant"))== null)
+            if ((await _roleManager.FindByNameAsync("Klant")).Equals(null))
             {
                await _roleManager.CreateAsync(new IdentityRole { Name = "Klant" });
             }

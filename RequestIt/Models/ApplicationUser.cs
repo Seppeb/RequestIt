@@ -11,7 +11,7 @@ namespace RequestIt.Models
         public string Voornaam { get; set; }        
         public string Achternaam { get; set; }
 
-        public ICollection<Aanvraag> Aanvragen { get; set; }
+        public ICollection<Aanvraag> Aanvragen { get; set; }       
 
     }
 }

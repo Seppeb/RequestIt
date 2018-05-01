@@ -3,61 +3,125 @@
 @{
     ViewData["Title"] = "Details";
 }
+@if (Model.IsVraag == true)
+{
+    <h2>Details van de vraag</h2>
+}
+else
+{
+    <h2>Details van de aanvraag</h2>
+}
 
-<h2>Details</h2>
 
 <div>
-    <h4>Aanvraag</h4>
     <hr />
+    @if (Model.IsVraag == true)
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="Titel" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="Titel" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="Omschrijving" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <textarea asp-for="Omschrijving" rows="4" cols="3" readonly class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="StartDatum" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="StartDatum" readonly class="form-control date-text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="EindDatum" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="EindDatum" readonly class="form-control date-text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="Status.Naam" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="Status.Naam" rows="4" cols="3" readonly class="form-control"/>
+            </div>
+        </div>
+    }
+    else
+    {
 
-    <div class="left-align">
-        <dl>
-            <dt>
-                @Html.DisplayNameFor(model => model.Titel) :
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Titel)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Omschrijving) :
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Omschrijving)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.StartDatum) :
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.StartDatum)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.EindDatum) :
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.EindDatum)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.LinkVoorbeeldKlant) :
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LinkVoorbeeldKlant)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.LinkVoorbeeldBehandelaar) :
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LinkVoorbeeldBehandelaar)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Status) :
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Status.Naam)
-            </dd>
-        </dl>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="Titel" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="Titel" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="Omschrijving" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <textarea asp-for="Omschrijving" rows="4" cols="3" readonly class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="StartDatum" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="StartDatum" readonly class="form-control date-text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="EindDatum" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="EindDatum" readonly class="form-control date-text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="LinkVoorbeeldKlant" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="LinkVoorbeeldKlant" readonly class="form-control url" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="LinkVoorbeeldBehandelaar" readonly class="form-control url" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="Status.Naam" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="Status.Naam" rows="4" cols="3" readonly class="form-control" />
+            </div>
+        </div>
+    }
+</div>
+
+    <div>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <a class="btn btn-info" asp-action="Index" asp-route-id="@Model.UserId">Back to List</a>
     </div>
-</div>
-<div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    <a class="btn btn-info" asp-action="Index">Back to List</a>
-</div>

@@ -1,4 +1,4 @@
-﻿@model RegisterViewModel
+﻿@model ApplicationUser
 @using RequestIt.Utility
 @{
     ViewData["Title"] = "Register";
@@ -26,31 +26,13 @@
                 <label asp-for="Achternaam"></label>
                 <input asp-for="Achternaam" class="form-control" />
                 <span asp-validation-for="Achternaam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TelefoonNummer"></label>
-                <input asp-for="TelefoonNummer" class="form-control" />
-                <span asp-validation-for="TelefoonNummer" class="text-danger"></span>
-            </div>
+            </div>            
             <div class="form-group">
                 <label asp-for="Password"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>           
-                <div class="form-group">
-                    <label asp-for="IsAdmin"></label>
-                    <input asp-for="IsAdmin" type="checkbox" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="IsBehandelaar"></label>
-                    <input asp-for="IsBehandelaar" type="checkbox" class="form-control" />
-                </div>                 
-                <button type="submit" class="btn btn-default">klant toevoegen</button>                     
+            </div>            
+            <button type="submit" class="btn btn-default">klant toevoegen</button>
         </form>
     </div>
 </div>

@@ -4,33 +4,58 @@
 @{
     ViewData["Title"] = "Create";
 }
+@if (Model.IsVraag == true)
+{
+    <h2> Stel hier je vraag</h2>
+}else
+	{
+    <h2>Een nieuwe Aanvraag</h2>
+	}   
 
-<h2>Een nieuwe Aanvraag</h2>
 
 <h4>Gelieve hier alle info op te geven</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Titel" class="control-label"></label>
-                <input asp-for="Titel" class="form-control" />
-                <span asp-validation-for="Titel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Omschrijving" class="control-label"></label>
-                <textarea asp-for="Omschrijving" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="Omschrijving" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="LinkVoorbeeldKlant" class="control-label"></label>
-                <input asp-for="LinkVoorbeeldKlant" class="form-control" />
-                <span asp-validation-for="LinkVoorbeeldKlant" class="text-danger"></span>
-            </div>
-            @if (User.IsInRole(SD.BehandelaarEndUser))
+            @if (Model.IsVraag == true)
     {
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label class="control-label">Vraag</label>
+            <input asp-for="Titel" class="form-control" />
+            <span asp-validation-for="Titel" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Vraagomschrijving</label>
+            <textarea asp-for="Omschrijving" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Omschrijving" class="text-danger"></span>
+        </div>
+        <input asp-for="IsVraag" type="hidden" value=true />
+}
+else
+{
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Titel" class="control-label"></label>
+            <input asp-for="Titel" class="form-control" />
+            <span asp-validation-for="Titel" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Omschrijving" class="control-label"></label>
+            <textarea asp-for="Omschrijving" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Omschrijving" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LinkVoorbeeldKlant" class="control-label"></label>
+            <input asp-for="LinkVoorbeeldKlant" class="form-control" />
+            <span asp-validation-for="LinkVoorbeeldKlant" class="text-danger"></span>
+        </div>
+        @if (User.IsInRole(SD.BehandelaarEndUser))
+{
         <div class="form-group">
             <label asp-for="LinkVoorbeeldBehandelaar" class="control-label"></label>
             <input asp-for="LinkVoorbeeldBehandelaar" class="form-control" />
@@ -46,7 +71,7 @@ else if (User.IsInRole(SD.AdminEndUser))
         </div>
 }
 
-
+}
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
                 <a class="btn btn-info" asp-route-userId="@Model.UserId" asp-action="Index">Terug naar overzicht</a>

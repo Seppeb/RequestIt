@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RequestIt.Configuration;
 using RequestIt.Data;
 using RequestIt.Models;
 using RequestIt.Services;
@@ -32,25 +33,11 @@ namespace RequestIt
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
-
-        //    services.AddAuthentication().AddFacebook(options =>
-        //    {
-        //        options.AppId = Configuration["auth:facebook:appid"];
-        //        options.AppSecret = Configuration["auth:facebook:appsecret"];
-        //    });
-
-       //     services.AddAuthentication()
-       //.AddGoogle(options =>
-       // {
-       //    options.ClientId = Configuration["auth:google:clientid"];
-       //    options.ClientSecret = Configuration["auth:google:clientsecret"];
-       // });
-
+            services.AddMvc();     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -75,6 +62,8 @@ namespace RequestIt
             });
 
             DbInit.Init(context);
+
+          //  new UserRoleSeed(roleManager).Seed();
            
         }
         

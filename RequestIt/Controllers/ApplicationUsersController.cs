@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,46 +14,48 @@ using RequestIt.ViewModels;
 
 namespace RequestIt.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class ApplicationUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ApplicationUsersController(ApplicationDbContext context)
+
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: ApplicationUsers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(string option=null, string search=null)
         {
-
             //data ophalen joins
             var lst = from u in _context.Users
-                join ur in _context.UserRoles
-                    on u.Id equals ur.UserId
-                join r in _context.Roles
-                    on ur.RoleId equals r.Id
-                select new { u.UserName, u.Voornaam, u.Achternaam,u.Id, u.PhoneNumber, r.Name };
+                      join ur in _context.UserRoles
+                          on u.Id equals ur.UserId
+                      join r in _context.Roles
+                          on ur.RoleId equals r.Id
+                      select new { u.UserName, u.Voornaam, u.Achternaam, u.Id, r.Name };
 
             //viewmodel initialisersn
-            List<UserRoleViewModel> lijstUserMetRoles  = new List<UserRoleViewModel>();
+            List<ApplicationUserIndexViewModel> lijstUserMetRoles = new List<ApplicationUserIndexViewModel>();
 
             //opvullen van viewmodel met data
             foreach (var item in lst)
             {
-                UserRoleViewModel u = new UserRoleViewModel
+                ApplicationUserIndexViewModel u = new ApplicationUserIndexViewModel
                 {
-                    UserName = item.UserName,
-                    Voornaam = item.Voornaam,
-                    Achternaam = item.Achternaam,
-                    PhoneNumber = item.PhoneNumber,
+                    Username = item.UserName,
                     UserId = item.Id,
-                    RoleName = item.Name
+                    Voornaam = item.Voornaam,
+                    Achternaam = item.Achternaam,                 
+                    Rol = item.Name
                 };
                 lijstUserMetRoles.Add(u);
-            }           
+            }
 
             return View(lijstUserMetRoles);
         }
@@ -64,7 +67,7 @@ namespace RequestIt.Controllers
 
             var UsersAanvragenStatus = _context.Users
                 .Include(use => use.Aanvragen)
-                    .ThenInclude(aanvraag => aanvraag.Status)
+                    .ThenInclude(aanvraag => aanvraag.Status)                
                 .ToList();
 
             foreach (var item in UsersAanvragenStatus)
@@ -83,25 +86,43 @@ namespace RequestIt.Controllers
             return View(lijst);
         }
 
+        //[Authorize(Roles = "Admin,Behandelaar")]
+        //public IActionResult IndexManagement()
+        //{
 
-        // GET: ApplicationUsers/Details/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //    var userWithRoles =
+        //        (from user in _context.Users
+        //         from userRole in user.Roles
+        //         join role in _context.Roles
+        //         on userRole.RoleId equals role.Id
+        //         select new ApplicationUserIndexManagementViewModel()
+        //         {
 
-            var applicationUser = await _context.ApplicationUser
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
-            {
-                return NotFound();
-            }
+        //         }).ToList();
 
-            return View(applicationUser);
-        }
+        //    return View(userWithRoles);
+        //}
+
+        //// GET: ApplicationUsers/Details/5
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Details(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+            
+        //    var applicationUser = await _context.ApplicationUser
+        //        .SingleOrDefaultAsync(m => m.Id == id);
+        //    if (applicationUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(applicationUser);
+        //}
+
+
         [Authorize(Roles = "Admin")]
         // GET: ApplicationUsers/Create
         public IActionResult Create()
@@ -131,17 +152,22 @@ namespace RequestIt.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
+            
+            ApplicationUserEditViewModel create = new ApplicationUserEditViewModel
             {
-                return NotFound();
-            }
-            return View(applicationUser);
+                Userbyid = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id)
+                 
+            };
+            
+            
+            
+            return View(create);
         }
 
         // POST: ApplicationUsers/Edit/5

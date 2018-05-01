@@ -10,75 +10,152 @@
 
 <hr />
 
-<div class="row">
+<div class="row" style="padding-bottom:80px;">
     <div class="col-sm-6">
         <a class="btn btn-primary" asp-action="Create" asp-route-userId="@Model.UserObj.Id">Nieuwe Aanvraag</a>
 
         @if (User.IsInRole(SD.KlantEndUser))
-        {
-            <a class="btn btn-info" asp-action="Create" asp-route-userId="@Model.UserObj.Id">Stel een vraag</a>
+        {          
+            <a class="btn btn-info" asp-action="Create" asp-route-userId="@Model.UserObj.Id" asp-route-isVraag="true">Stel een vraag</a>
         }
 
     </div>
+
+    <div class="col-sm-6">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Voornaam" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="UserObj.Voornaam" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Achternaam" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="UserObj.Achternaam" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Email" class="control-label"></label>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="UserObj.Email" readonly class="form-control" />
+            </div>
+
+        </div>        
+    </div>
 </div>
+
 
 @if (Model.Aanvragen.Count() == 0)
 {
     <hr />
-    <div class="text-primary"> Geen Aanvragen gevonden, voeg een aanvraag toe</div>
+    <div class="text-primary"> Geen Aanvragen of vragen gevonden, voeg een aanvraag toe of stel ons een vraag</div>
 }
 else
 {
-    <table class="table-hover table-striped table-condensed table-responsive" width="100%">
+    <table class="table-hover table-striped table-condensed table-responsive">
         <caption>
-            Aanvragen
-
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Titel)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Omschrijving)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().StartDatum)
-                </th>
-                <th>
-                    Status
-                </th>
-                <td class="text-left" style="font-weight:bold">
-                    Controls
-                </td>
-            </tr>
-            @foreach (var item in Model.Aanvragen)
-            {
+            Aanvragen            
                 <tr>
-                    <td>
-                        @Html.DisplayFor(m => item.Titel)
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Titel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().Omschrijving)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().StartDatum)
+                    </th>
+                    <th>
+                        Status
+                    </th>                    
+                </tr>            
+            @foreach (var item in Model.Aanvragen)
+    {
+        if (item.IsVraag != true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Titel)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(m => item.Omschrijving)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => item.StartDatum)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => item.Status.Naam)
-                    </td>
-                    <td class="text-left">
-                        <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id" asp-controller="Aanvraags"></a>
-                        <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id" asp-controller="Aanvraags"></a>
-                        <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id" asp-controller="Aanvraags"></a>
-                    </td>
+                <td>
+                    @Html.DisplayFor(m => item.Omschrijving)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.StartDatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Status.Naam)
+                </td>
+                <td class="text-left">
+                    <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id" asp-controller="Aanvraags"></a>
+                    <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id" asp-controller="Aanvraags"></a>
+                    <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id" asp-controller="Aanvraags"></a>
+                </td>
 
-                </tr>
+            </tr>
+}
 
-            }
+
+}
         </caption>
     </table>
-    <table>
+    <table class="table-hover table-striped table-condensed table-responsive">
         <caption>Vragen</caption>
+        <tr>
+            <th>
+                Vraag
+            </th>
+            <th>
+                Inhoud
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Aanvragen.FirstOrDefault().StartDatum)
+            </th>
+            <th>
+                Status
+            </th>            
+        </tr>
+        @foreach (var item in Model.Aanvragen)
+    {
+        if (item.IsVraag == true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Titel)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(m => item.Omschrijving)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.StartDatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Status.Naam)
+                </td>
+                <td class="text-left">
+                    <a class="btn btn-sm btn-success glyphicon glyphicon-pencil" asp-action="Edit" asp-route-id="@item.Id"  asp-controller="Aanvraags"></a>
+                    <a class="btn btn-sm btn-info glyphicon glyphicon-search" asp-action="Details" asp-route-id="@item.Id"  asp-controller="Aanvraags"></a>
+                    <a class="btn btn-sm btn-danger glyphicon glyphicon-trash" asp-action="Delete" asp-route-id="@item.Id" asp-controller="Aanvraags"></a>
+                </td>
+
+            </tr>
+    }
+
+
+}
     </table>
 }
 

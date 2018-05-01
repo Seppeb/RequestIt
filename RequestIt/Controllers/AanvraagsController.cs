@@ -4,12 +4,15 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RequestIt.Data;
 using RequestIt.Models;
 using RequestIt.ViewModels;
+using RequestIt.Utility;
 
 namespace RequestIt.Controllers
 {
@@ -17,10 +20,13 @@ namespace RequestIt.Controllers
     public class AanvraagsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AanvraagsController(ApplicationDbContext context)
+
+        public AanvraagsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Aanvraags
@@ -40,7 +46,7 @@ namespace RequestIt.Controllers
         }
 
         // GET: Aanvraags/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string UserId)
         {
             if (id == null)
             {
@@ -49,6 +55,7 @@ namespace RequestIt.Controllers
 
             var aanvraag = await _context.Aanvragen
                 .Include(m => m.Status)
+                .Include(u => u.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (aanvraag == null)
             {
@@ -59,12 +66,26 @@ namespace RequestIt.Controllers
         }
 
         // GET: Aanvraags/Create
-        public IActionResult Create(string userId)
+        public IActionResult Create(string userId, bool isVraag)
         {
-            Aanvraag aanvraag = new Aanvraag
+
+            Aanvraag aanvraag;
+            if (isVraag == true)
             {
-                UserId = userId
-            };
+                aanvraag = new Aanvraag
+                {
+                    IsVraag = true,
+                    UserId = userId
+                };
+            }
+            else
+            {
+                aanvraag = new Aanvraag
+                {
+                    UserId = userId
+                };
+            }  
+            
             return View(aanvraag);
         }
 
@@ -90,17 +111,18 @@ namespace RequestIt.Controllers
             if (id == null)
             {
                 return NotFound();
-            }
-
-
-            var statussen = await _context.Status.ToListAsync();
+            }       
+            
+            var usersOfBehandelaars = await _userManager.GetUsersInRoleAsync("Behandelaar");
+            var statussen = await _context.Status.Select(x => new { Text = x.Naam, Value = x.Id}).ToListAsync();            
             var aanvraag = await _context.Aanvragen.Include(m => m.Status).SingleOrDefaultAsync(m => m.Id == id);
 
             Statuslijstaanvraag u = new Statuslijstaanvraag
             {
                 Aanvraag = aanvraag,
-                Statusessen = statussen
-
+                Statusessen = new SelectList(statussen,"Value","Text", aanvraag.StatusId),
+                StatusId = aanvraag.StatusId,
+                
             };
 
             if (aanvraag == null)
@@ -115,7 +137,7 @@ namespace RequestIt.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titel,Omschrijving,StartDatum,EindDatum,LinkVoorbeeldKlant,LinkVoorbeeldBehandelaar,StatusId,UserId")] Aanvraag aanvraag)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titel,Omschrijving,StartDatum,EindDatum,LinkVoorbeeldKlant,LinkVoorbeeldBehandelaar,StatusId,UserId,IsVraag")] Aanvraag aanvraag)
         {
             if (id != aanvraag.Id)
             {

@@ -11,9 +11,10 @@ using System;
 namespace RequestIt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180430113819_BehandelaarID")]
+    partial class BehandelaarID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,8 +137,6 @@ namespace RequestIt.Data.Migrations
                     b.Property<string>("BehandelaarId");
 
                     b.Property<DateTime?>("EindDatum");
-
-                    b.Property<bool?>("IsVraag");
 
                     b.Property<string>("LinkVoorbeeldBehandelaar");
 
